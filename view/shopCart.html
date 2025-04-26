@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/shopCart.css">
+    <link rel="shortcut icon" href="./images/Food-Logo-Graphics-1-98.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="headerbar">
+                <div class="account">
+                    <ul>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-house-chimney"></i>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li>
+                                <i class="fa-solid fa-magnifying-glass searchicon" id="searchicon1"></i>
+                            </li>
+                        </a>
+                        <div class="search" id="searchinput1">
+                            <input type="search">
+                            <i class="fa-solid fa-magnifying-glass srchicon"></i>
+                        </div>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-user" id="user-mb"></i>
+                            </li>
+                        </a>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-cart-shopping" id=""></i>
+                            </li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="nav">
+                    <ul>
+
+                        <a href="#"></a>
+                        <li>
+                            <a href="../view/page.html">Trang Chủ</a>
+                        </li>
+                        </a>
+
+
+
+                        <a href=""></a>
+                        <li>Giới Thiệu</li>
+                        </a>
+
+                        <a href="#"></a>
+                        <li>
+                            <a href="../view/menu.html">Thực Đơn</a>
+                        </li>
+                        </a>
+
+                        <a href="#"></a>
+                        <li>Đặt Bàn</li>
+                        </a>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="logo">
+                <img src="./images/360_F_275700347_09reCCwb7JBxTKiYQXsyri4riMKaHbj8.jpg" alt="">
+            </div>
+            <div class="bar">
+                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="nav">
+                <ul>
+                    <a href="#"></a>
+                    <li>
+                        <a href="../view/page.html">Trang Chủ</a>
+                    </li>
+                    </a>
+
+                    <a href="#"></a>
+                    <li>Giới Thiệu</li>
+                    </a>
+
+                    <a href="#"></a>
+                    <li><a href="../view/selectTables.html">Đặt Bàn</a></li>
+                    </a>
+
+                    <a href="#"></a>
+                    <li>
+                        <a href="../view/menu.html">Thực Đơn</a>
+                    </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="account">
+                <ul>
+
+                    <a href="#">
+                        <li class="fa-solid fa-house-chimney"></li>
+                    </a>
+
+                    <a href="#">
+                        <li class="fa-solid fa-magnifying-glass searchicon" id="searchicon2"></li>
+                    </a>
+
+                    <div class="search" id="searchinput2">
+                        <input type="search">
+                        <i class="fa-solid fa-magnifying-glass srchicon"></i>
+                    </div>
+
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-user" id="user-lap"></i>
+                        </li>
+                    </a>
+
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-cart-shopping" id="user-cart"></i>
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <h1>Giỏ Hàng</h1>
+    <div id="order-id"></div>
+    <ul id="cart-items"></ul>
+
+    <p>Tổng tiền: <span id="total-price">0 VNĐ</span></p>
+    <button id="checkout-button">Xác Nhận</button>
+    <button id="payment-button">Thanh Toán</button>
+
+    <div id="customer-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-customer-modal" class="close">&times;</span>
+            <h2>Thông tin khách hàng</h2>
+            <form id="customerForm">
+                <label for="customerName">Tên khách hàng:</label>
+                <input type="text" id="customerName" required>
+
+                <label for="customerAddress">Địa chỉ:</label>
+                <input type="text" id="customerAddress" required>
+
+                <label for="customerEmail">Email:</label>
+                <input type="email" id="customerEmail" required>
+
+                <label for="customerPhone">Số điện thoại:</label>
+                <input type="text" id="customerPhone" required>
+
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+            <span id="close-invoice-modal" class="close">&times;</span>
+            <h2>Hóa Đơn</h2>
+            <div>
+                <p><strong>Tên khách hàng: </strong><span id="server-name"></span></p>
+                <p><strong>Bàn: </strong><span id="table-number"></span></p>
+
+            </div>
+
+            <table id="invoice-items">
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên Món</th>
+                        <th>Số Lượng</th>
+                        <th>Giá</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <p><strong>Tổng cộng: </strong><span id="total-price-modal">0 VNĐ</span></p>
+            <div>
+                <img src="../view/images/462537553_1705223143663241_844759981905990745_n.jpg" alt="">
+            </div>
+
+            <button id="confirm-checkout">Xác nhận thanh toán</button>
+        </div>
+    </div>
+
+
+    <script src="../controller/cart.js"></script>
+    <script src="../controller/userCreateCustomer.js"></script>
+
+</body>
+
+</html>

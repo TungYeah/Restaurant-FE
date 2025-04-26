@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="shortcut icon" href="./images/Food-Logo-Graphics-1-98.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="headerbar">
+                <div class="account">
+                    <ul>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-house-chimney"></i>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li>
+                                <i class="fa-solid fa-magnifying-glass searchicon" id="searchicon1"></i>
+                            </li>
+                        </a>
+                        <div class="search" id="searchinput1">
+                            <input type="search">
+                            <i class="fa-solid fa-magnifying-glass srchicon"></i>
+                        </div>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-user" id="user-mb"></i>
+                            </li>
+                        </a>
+                        <a href="">
+                            <li>
+                                <i class="fa-solid fa-cart-shopping" id=""></i>
+                            </li>
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <a href="#"></a>
+                        <li>
+                            <a href="../view/page.html">Trang Chủ</a>
+                        </li>
+                        </a>
+
+
+                        <a href=""></a>
+                        <li>Giới Thiệu</li>
+                        </a>
+
+                        <a href="#"></a>
+                        <li>Thực Đơn</li>
+                        </a>
+
+                        <a href=""></a>
+                        <li>Đặt Bàn</li>
+                        </a>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="logo">
+                <img src="../view/images/360_F_275700347_09reCCwb7JBxTKiYQXsyri4riMKaHbj8.jpg" alt="">
+            </div>
+            <div class="bar">
+                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="nav">
+                <ul>
+                    <a href="#"></a>
+                    <li>
+                        <a href="../view/page.html">Trang Chủ</a>
+                    </li>
+                    </a>
+
+
+                    <a href="#"></a>
+                    <li>Giới Thiệu</li>
+                    </a>
+
+                    <a href="#"></a>
+                    <li>Đặt Bàn</li>
+                    </a>
+
+                    <a href="#"></a>
+                    <li>Thực Đơn</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="account">
+                <ul>
+
+                    <a href="#">
+                        <li class="fa-solid fa-house-chimney" id="user-house"></li>
+                    </a>
+
+                    <a href="#">
+                        <li class="fa-solid fa-magnifying-glass searchicon" id="searchicon2"></li>
+                    </a>
+
+                    <div class="search" id="searchinput2">
+                        <input type="search" id="search-input-2" placeholder="Tìm kiếm món ăn...">
+                        <i class="fa-solid fa-magnifying-glass srchicon"></i>
+                    </div>
+
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-user" id="user-lap"></i>
+                        </li>
+                    </a>
+
+                    <a href="#">
+                        <li>
+                            <i class="fa-solid fa-cart-shopping" id="user-cart"></i>
+
+                        </li>
+                    </a>
+
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="filter-container">
+        <div class="filter">
+            <h3>Lọc theo Danh Mục</h3>
+            <select id="category-filter">
+                <option value="">Tất cả</option>
+
+            </select>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Menu Nhà Hàng</h1>
+        <div class="food-items" id="menu-list">
+
+        </div>
+    </div>
+    </div>
+
+
+    <script src="../controller/userSelectMenu.js"></script>
+    <script src="../controller/nextMenu.js"></script>
+
+</body>
+
+</html>
