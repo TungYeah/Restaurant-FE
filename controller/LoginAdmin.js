@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
     const adminLoginButton = document.querySelector('.admin-login');
 
-    adminLoginButton.addEventListener('click', async function (event) {
+    async function loginAdmin(event) {
         event.preventDefault();
-
-        const username = document.querySelector('input[name="username"]').value.trim();
-        const password = document.querySelector('input[name="password"]').value.trim();
+        const form = adminLoginButton.closest('form');
+        const username = form.querySelector('input[name="username"]').value.trim();
+        const password = form.querySelector('input[name="password"]').value.trim();
 
         if (!username || !password) {
             alert("Vui lòng nhập tên đăng nhập và mật khẩu.");
@@ -13,43 +13,64 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const loginResponse = await fetch("http://127.0.0.1:8081/restaurant/login/user", {
-                method: "POST",
+            const response = await fetch('http://127.0.0.1:8081/restaurant/auth/login/admin', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ username, password })
             });
 
-            if (!loginResponse.ok) {
-                throw new Error("Đăng nhập thất bại!");
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Lỗi khi gửi yêu cầu đăng nhập:", errorText);
+                throw new Error(`Đăng nhập không thành công: ${response.statusText}`);
             }
 
-            const loginResult = await loginResponse.json();
-            if (loginResult.result && loginResult.result.authenticated) {
+            const contentType = response.headers.get('Content-Type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const errorText = await response.text();
+                console.error("Phản hồi không phải JSON:", errorText);
+                alert("Lỗi: Phản hồi từ server không phải là JSON.");
+                return;
+            }
 
-                const infoResponse = await fetch(`http://127.0.0.1:8081/restaurant/admin/${username}`);
-                if (!infoResponse.ok) {
-                    throw new Error("Không thể lấy thông tin admin.");
+            const responseJson = await response.json();
+            console.log("Dữ liệu trả về từ server:", responseJson);
+
+            if (responseJson.result && responseJson.result.authenticated) {
+                const adminResponse = await fetch(`http://127.0.0.1:8081/restaurant/auth/admin/${username}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!adminResponse.ok) {
+                    throw new Error(`Không thể lấy thông tin Admin: ${adminResponse.statusText}`);
                 }
 
-                const admin = await infoResponse.json();
-                console.log("Thông tin admin:", admin);
+                const admin = await adminResponse.json();
+                console.log("Thông tin Admin:", admin);
 
-                // Lưu thông tin vào localStorage
-                localStorage.setItem("adminID", admin.adminID || "");
-                localStorage.setItem("name", admin.name || "");
-                localStorage.setItem("username", username);
-
-                alert("Đăng nhập thành công!");
-                window.location.href = "../view/dashboard.html"; // Chuyển hướng sau khi đăng nhập
+                if (admin && admin.adminID && admin.name) {
+                    localStorage.setItem('adminID', admin.adminID);
+                    localStorage.setItem('adminName', admin.name);
+                    localStorage.setItem('username', username);
+                    alert('Đăng nhập Admin thành công!');
+                    window.location.href = "/admin/pages/dashboard.html";
+                } else {
+                    alert("Không tìm thấy thông tin Admin.");
+                }
             } else {
-                alert("Sai tên đăng nhập hoặc mật khẩu.");
+                throw new Error("Thông tin đăng nhập không chính xác.");
             }
-
         } catch (error) {
-            console.error("Lỗi đăng nhập:", error);
-            alert("Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.");
+            console.error('Lỗi đăng nhập:', error);
+            alert(`Đã có lỗi xảy ra: ${error.message}`);
         }
-    });
+    }
+
+    // Gán sự kiện vào nút đăng nhập với Admin
+    adminLoginButton.addEventListener('click', loginAdmin);
 });

@@ -30,8 +30,7 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
         aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand px-4 py-3 m-0" href="billing.html"
-        target="_blank">
+      <a class="navbar-brand px-4 py-3 m-0" href="billing.html" target="_blank">
         <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
         <span class="ms-1 text-sm text-dark">User</span>
       </a>
@@ -69,7 +68,12 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
-    
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/sign-in.html">
+            <i class="material-symbols-rounded opacity-5">logout</i>
+            <span class="nav-link-text ms-1">Sign Out</span>
+          </a>
+        </li>
       </ul>
     </div>
   </aside>
@@ -110,10 +114,10 @@
               <h6 class="mb-0">Users Information</h6>
             </div>
             <div class="d-flex justify-content-end mb-3 px-3">
-              <button class="btn bg-gradient-primary mb-0" onclick="createNewUser()">
+              <a href="../../admin/client/html/SignUpUser.html" class="btn custom-bg-gradient mb-0">
                 <i class="material-symbols-rounded">person_add</i>
                 Create a new user
-              </button>
+              </a>
             </div>
             <div class="card-body pt-4 p-3">
               <div id="user-list"></div>
@@ -245,5 +249,52 @@
   <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
   <script src="../assets/admin-controller/admin.js"></script>
 </body>
+<style>
+  .btn.custom-bg-gradient {
+    background: linear-gradient(45deg, #3a55a1, #5b7a92) !important;
+    /* Gradient với tông xanh đậm hơn */
+    border-color: #3a55a1 !important;
+    /* Màu viền nút */
+    color: white;
+    /* Màu chữ trắng */
+  }
+
+  .btn.custom-bg-gradient:hover {
+    background: linear-gradient(45deg, #2e4b87, #4c6f81) !important;
+    /* Gradient khi hover, xanh đậm hơn */
+    border-color: #2e4b87 !important;
+    color: white;
+    /* Màu chữ trắng khi hover */
+
+    .material-symbols-rounded {
+      color: #5b7a92;
+      /* Màu mới cho icon delete */
+    }
+  }
+
+  .badge-colors .badge {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .badge-colors .badge:hover {
+    background-color: #5a68c1;
+    /* Màu khi hover */
+  }
+
+  .nav-link.active.bg-gradient-dark {
+  background: linear-gradient(45deg, #3a55a1, #5b7a92) !important;
+  /* Gradient với tông xanh đậm hơn */
+  color: #fff;
+  /* Đảm bảo chữ vẫn sáng */
+}
+
+.nav-link.bg-gradient-dark:hover {
+  background: linear-gradient(45deg, #2e4b87, #4c6f81) !important;
+  /* Gradient khi hover, xanh đậm hơn */
+  color: #fff;
+  /* Đảm bảo chữ vẫn sáng */
+}
+
+</style>
 
 </html>

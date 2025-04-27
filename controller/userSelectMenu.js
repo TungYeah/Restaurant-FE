@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayMenu(filteredData);
     });
 
-    // Search function
+
     const searchMenu = (query) => {
         const filteredData = menuData.filter(food => food.name.toLowerCase().includes(query.toLowerCase()));
         displayMenu(filteredData);

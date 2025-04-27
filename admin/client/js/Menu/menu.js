@@ -1,0 +1,61 @@
+const fetchMenuItems = async () => {
+  try {
+    const response = await fetch('http://localhost:8081/restaurant/menu'); // Thay URL với endpoint API của bạn
+    const data = await response.json();
+
+    const tableBody = document.getElementById('menuItemsTable');
+    tableBody.innerHTML = ''; // Xóa dữ liệu cũ nếu có
+
+    data.forEach(item => {
+      // Tạo mỗi dòng cho món ăn
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td>
+            <div class="d-flex px-2 py-1">
+              <div>
+                <img src="${item.description}" class="avatar avatar-sm me-3 border-radius-lg" alt="${item.name}">
+              </div>
+              <div class="d-flex flex-column justify-content-center">
+                <h6 class="mb-0 text-sm">${item.name}</h6>
+                <p class="text-xs text-secondary mb-0">${item.category.name}</p> <!-- Dùng category.name nếu có -->
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="text-xs font-weight-bold mb-0">${item.category.name}</p>
+          </td>
+          <td class="align-middle text-center text-sm">
+            <span class="badge badge-sm" style="background-color: #6b7ddc; color: white;">${item.price} VND</span> <!-- Màu #6b7ddc -->
+          </td>
+          <td class="align-middle text-center">
+            <div class="ms-auto text-end">
+                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;" onclick="deleteMenuItem('${item.foodID}')">
+                    <i class="material-symbols-rounded text-sm me-2">delete</i>Delete
+                </a>
+                <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;" onclick="editMenuItem('${item.foodID}')">
+                    <i class="material-symbols-rounded text-sm me-2">edit</i>Edit
+                </a>
+            </div>
+          </td>
+        `;
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Lỗi khi lấy món ăn:', error);
+  }
+};
+
+
+document.addEventListener('DOMContentLoaded', fetchMenuItems);
+
+
+function editMenuItem(foodID) {
+  console.log('Sửa món ăn với ID:', foodID);
+
+}
+
+// Hàm để xóa món ăn khỏi giỏ hàng
+function deleteMenuItem(foodID) {
+  console.log('Xóa món ăn với ID:', foodID);
+  // Logic để xóa món ăn khỏi giỏ hàng
+}

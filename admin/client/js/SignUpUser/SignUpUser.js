@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Đăng ký thành công!');
 
 
-            window.location.href = 'http://127.0.0.1:5501/Restaurant-fe-main/admin/pages/billing.html';
+            window.location.href = '/admin/pages/billing.html';
 
 
         } catch (error) {
