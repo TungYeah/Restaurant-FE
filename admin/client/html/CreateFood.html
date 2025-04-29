@@ -14,19 +14,16 @@
         <form id="createFoodForm" class="form-container">
             <h1>Tạo Món Ăn</h1>
 
-            <select id="categorySelect" required>
-                <option value="" disabled selected>Chọn danh mục</option>
-            </select>
-
+            <input type="text" id="categoryName" placeholder="Thể loại" required>
             <input type="text" id="foodName" placeholder="Tên món ăn" required>
-            <input type="number" id="foodPrice" placeholder="Giá món ăn" step="0.01" required>
+            <input type="number" id="foodPrice" placeholder="Giá món ăn (VNĐ)" step="0.01" required>
             <input id="foodDescription" placeholder="Mô tả món ăn" rows="4" required></input>
 
             <button type="submit">Tạo Món</button>
         </form>
     </div>
 
-    <script src="../js/CreateFood.js"></script>
+    <script src="../js/Menu/CreateFood.js"></script>
 </body>
 
 </html>

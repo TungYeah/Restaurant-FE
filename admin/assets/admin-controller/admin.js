@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => {
             console.error('Không thể lấy thông tin người dùng:', error);
-            userList.innerHTML = '<p>Không tìm thấy thông tin người dùng.</p>';
+            userList.innerHTML = '<p>Không thấy thông tin người dùng.</p>';
         });
 
-    // Hiển thị thông tin người dùng
+
     const displayUserInfo = (users) => {
         userList.innerHTML = '';
 

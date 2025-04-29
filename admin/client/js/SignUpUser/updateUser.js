@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => {
                 if (response.ok) {
-                    alert("Cập nhật thông tin thành công!");
                     window.location.href = "/admin/pages/billing.html";
                 } else {
                     alert("Cập nhật thông tin thất bại.");

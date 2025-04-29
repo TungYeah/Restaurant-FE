@@ -1,74 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const categorySelect = document.getElementById('categorySelect');
+    // Lấy các phần tử từ form
     const createFoodForm = document.getElementById('createFoodForm');
+    const categoryName = document.getElementById('categoryName');
     const foodName = document.getElementById('foodName');
     const foodPrice = document.getElementById('foodPrice');
     const foodDescription = document.getElementById('foodDescription');
 
 
-    then(response => response.json())
-        .then(data => {
-            console.log('Dữ liệu trả về từ API:', data);
-
-
-            const categories = [...new Set(data.map(food => food.category.name))];
-            console.log('Danh sách các danh mục:', categories); // Log danh mục
-
-
-            const defaultOption = document.createElement('option');
-            defaultOption.value = "";
-            defaultOption.textContent = "Chọn danh mục";
-            categorySelect.appendChild(defaultOption);
-
-
-            categories.forEach(categoryName => {
-                let option = document.createElement('option');
-                option.value = categoryName;
-                option.textContent = categoryName;
-                categorySelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error fetching categories:', error));
-
-
     createFoodForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const selectedCategory = categorySelect.value;
-        const name = foodName.value;
-        const price = parseFloat(foodPrice.value);
-        const description = foodDescription.value;
 
-        if (!selectedCategory || !name || !price || !description) {
-            alert('Vui lòng điền đầy đủ thông tin!');
+        const category = categoryName.value.trim();
+        const name = foodName.value.trim();
+        const price = parseFloat(foodPrice.value);
+        const description = foodDescription.value.trim();
+
+
+        if (!category || !name || isNaN(price) || price <= 0 || !description) {
+            alert('Vui lòng điền đầy đủ thông tin hợp lệ!');
             return;
         }
 
 
         const newFood = {
-            nameCategory: selectedCategory,
+            nameCategory: category,
             name: name,
             price: price,
             description: description
         };
 
-
-        fetch('http://localhost:8081/restaurant/food', {
+        fetch('http://127.0.0.1:8081/restaurant/menu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newFood)
         })
-            .then(response => response.json())
-            .then(data => {
-                alert('Món ăn đã được tạo thành công!');
+            .then(response => {
 
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.message || 'Không thể tạo món ăn');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                alert('Tạo món ăn thành công!');
                 createFoodForm.reset();
+
+
+                window.location.href = "/admin/pages/tables.html";
             })
             .catch(error => {
-                console.error('Error creating food:', error);
-                alert('Đã có lỗi xảy ra, vui lòng thử lại!');
+
+                console.error('Lỗi khi tạo món ăn:', error.message || error);
+                alert('Đã xảy ra lỗi, vui lòng thử lại!');
             });
     });
 });

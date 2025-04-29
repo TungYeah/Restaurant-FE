@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('adminID', admin.adminID);
                     localStorage.setItem('adminName', admin.name);
                     localStorage.setItem('username', username);
-                    alert('Đăng nhập Admin thành công!');
                     window.location.href = "/admin/pages/dashboard.html";
                 } else {
                     alert("Không tìm thấy thông tin Admin.");
@@ -71,6 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Gán sự kiện vào nút đăng nhập với Admin
+
     adminLoginButton.addEventListener('click', loginAdmin);
 });

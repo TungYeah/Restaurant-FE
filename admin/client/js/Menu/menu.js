@@ -1,13 +1,12 @@
 const fetchMenuItems = async () => {
   try {
-    const response = await fetch('http://localhost:8081/restaurant/menu'); // Thay URL với endpoint API của bạn
+    const response = await fetch('http://localhost:8081/restaurant/menu');
     const data = await response.json();
 
     const tableBody = document.getElementById('menuItemsTable');
-    tableBody.innerHTML = ''; // Xóa dữ liệu cũ nếu có
+    tableBody.innerHTML = '';
 
     data.forEach(item => {
-      // Tạo mỗi dòng cho món ăn
       const row = document.createElement('tr');
       row.innerHTML = `
           <td>
@@ -17,7 +16,7 @@ const fetchMenuItems = async () => {
               </div>
               <div class="d-flex flex-column justify-content-center">
                 <h6 class="mb-0 text-sm">${item.name}</h6>
-                <p class="text-xs text-secondary mb-0">${item.category.name}</p> <!-- Dùng category.name nếu có -->
+                <p class="text-xs text-secondary mb-0">${item.category.name}</p>
               </div>
             </div>
           </td>
@@ -25,7 +24,7 @@ const fetchMenuItems = async () => {
             <p class="text-xs font-weight-bold mb-0">${item.category.name}</p>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="badge badge-sm" style="background-color: #6b7ddc; color: white;">${item.price} VND</span> <!-- Màu #6b7ddc -->
+            <span class="badge badge-sm" style="background-color: #6b7ddc; color: white;">${item.price} VND</span>
           </td>
           <td class="align-middle text-center">
             <div class="ms-auto text-end">
@@ -45,17 +44,32 @@ const fetchMenuItems = async () => {
   }
 };
 
-
 document.addEventListener('DOMContentLoaded', fetchMenuItems);
-
 
 function editMenuItem(foodID) {
   console.log('Sửa món ăn với ID:', foodID);
-
 }
 
-// Hàm để xóa món ăn khỏi giỏ hàng
-function deleteMenuItem(foodID) {
-  console.log('Xóa món ăn với ID:', foodID);
-  // Logic để xóa món ăn khỏi giỏ hàng
-}
+
+const deleteMenuItem = async (foodID) => {
+  if (confirm("Bạn có chắc chắn muốn xóa món ăn này?")) {
+    try {
+      const response = await fetch(`http://localhost:8081/restaurant/menu/${foodID}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        alert('Món ăn đã bị xóa thành công!');
+        fetchMenuItems();
+      } else {
+        alert('Không thể xóa món ăn. Vui lòng thử lại!');
+      }
+    } catch (error) {
+      console.error('Lỗi khi xóa món ăn:', error);
+      alert('Đã xảy ra lỗi khi xóa món ăn. Vui lòng thử lại!');
+    }
+  }
+};

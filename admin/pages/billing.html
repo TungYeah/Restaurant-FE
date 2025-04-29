@@ -69,11 +69,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/sign-in.html">
+          <a class="nav-link text-dark" href="#" id="signOutLink">
             <i class="material-symbols-rounded opacity-5">logout</i>
             <span class="nav-link-text ms-1">Sign Out</span>
           </a>
         </li>
+
       </ul>
     </div>
   </aside>
@@ -248,6 +249,7 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
   <script src="../assets/admin-controller/admin.js"></script>
+  <script src="/admin/assets/admin-controller/logout.js"></script>
 </body>
 <style>
   .btn.custom-bg-gradient {
@@ -282,19 +284,18 @@
   }
 
   .nav-link.active.bg-gradient-dark {
-  background: linear-gradient(45deg, #3a55a1, #5b7a92) !important;
-  /* Gradient với tông xanh đậm hơn */
-  color: #fff;
-  /* Đảm bảo chữ vẫn sáng */
-}
+    background: linear-gradient(45deg, #3a55a1, #5b7a92) !important;
+    /* Gradient với tông xanh đậm hơn */
+    color: #fff;
+    /* Đảm bảo chữ vẫn sáng */
+  }
 
-.nav-link.bg-gradient-dark:hover {
-  background: linear-gradient(45deg, #2e4b87, #4c6f81) !important;
-  /* Gradient khi hover, xanh đậm hơn */
-  color: #fff;
-  /* Đảm bảo chữ vẫn sáng */
-}
-
+  .nav-link.bg-gradient-dark:hover {
+    background: linear-gradient(45deg, #2e4b87, #4c6f81) !important;
+    /* Gradient khi hover, xanh đậm hơn */
+    color: #fff;
+    /* Đảm bảo chữ vẫn sáng */
+  }
 </style>
 
 </html>
