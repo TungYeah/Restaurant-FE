@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật món ăn</title>
+    <link rel="stylesheet" href="../css/SignUpUser.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="updateFoodForm" class="form-container">
+            <h1>Cập nhật món ăn</h1>
+            <input type="text" id="categoryName" name="categoryName" placeholder="Thể loại" required>
+            <input type="text" id="foodName" name="foodName" placeholder="Tên món ăn" required>
+            <input type="number" id="foodPrice" name="foodPrice" placeholder="Giá món ăn (VNĐ)" step="0.01" required>
+            <input type="text" id="foodDescription" name="foodDescription" placeholder="Mô tả (link ảnh)" required>
+            <button type="submit">Cập nhật</button>
+        </form>
+    </div>
+
+    <script src="../js/Menu/UpdateFood.js"></script>
+</body>
+
+</html>

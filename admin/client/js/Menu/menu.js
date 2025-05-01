@@ -44,13 +44,12 @@ const fetchMenuItems = async () => {
   }
 };
 
-document.addEventListener('DOMContentLoaded', fetchMenuItems);
 
 function editMenuItem(foodID) {
-  console.log('Sửa món ăn với ID:', foodID);
+  window.location.href = `/admin/client/html/UpdateFood.html?foodID=${foodID}`;
 }
 
-
+// Xóa món ăn
 const deleteMenuItem = async (foodID) => {
   if (confirm("Bạn có chắc chắn muốn xóa món ăn này?")) {
     try {
@@ -73,3 +72,6 @@ const deleteMenuItem = async (foodID) => {
     }
   }
 };
+
+// Gọi khi DOM đã sẵn sàng
+document.addEventListener('DOMContentLoaded', fetchMenuItems);
