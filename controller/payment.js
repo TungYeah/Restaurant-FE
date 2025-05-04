@@ -1,3 +1,6 @@
+
+// payment-example.js - Ví dụ cách sử dụng paymentService
+
 import paymentService from './paymentService.js';
 
 /**
@@ -68,7 +71,19 @@ function handlePaymentReturn() {
  * @param {Object} paymentResult - Kết quả thanh toán
  */
 function showPaymentSuccess(paymentResult) {
-  const successMessage = `Thanh toán thành công! Mã giao dịch: ${paymentResult.transactionId}`;
+  const successMessage = `
+    <div class="payment-success">
+      <h2>Thanh toán thành công!</h2>
+      <p>Mã giao dịch: ${paymentResult.transactionId}</p>
+      <p>Số tiền: ${paymentResult.amount.toLocaleString('vi-VN')} VND</p>
+      <p>Ngân hàng: ${paymentResult.bankCode}</p>
+      <p>Thời gian: ${formatPaymentDate(paymentResult.paymentTime)}</p>
+      <button onclick="redirectToOrderDetail('${paymentResult.transactionId}')">
+        Xem chi tiết đơn hàng
+      </button>
+    </div>
+  `;
+  
   document.getElementById('payment-result-container').innerHTML = successMessage;
 }
 
@@ -77,7 +92,20 @@ function showPaymentSuccess(paymentResult) {
  * @param {Object} paymentResult - Kết quả thanh toán
  */
 function showPaymentFailure(paymentResult) {
-  const failureMessage = `Thanh toán không thành công. Lý do: ${paymentResult.responseMessage}`;
+  const failureMessage = `
+    <div class="payment-failure">
+      <h2>Thanh toán không thành công</h2>
+      <p>Lý do: ${paymentResult.responseMessage}</p>
+      <p>Mã lỗi: ${paymentResult.responseCode}</p>
+      <button onclick="retryPayment('${paymentResult.transactionId}')">
+        Thử lại
+      </button>
+      <button onclick="redirectToHome()">
+        Quay lại trang chủ
+      </button>
+    </div>
+  `;
+  
   document.getElementById('payment-result-container').innerHTML = failureMessage;
 }
 
@@ -105,6 +133,34 @@ async function updateOrderStatus(paymentResult) {
   } catch (error) {
     console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
   }
+}
+
+/**
+ * Định dạng ngày tháng từ chuỗi VNPay trả về (yyyyMMddHHmmss)
+ * @param {string} dateString - Chuỗi ngày từ VNPay
+ * @returns {string} - Chuỗi ngày đã định dạng
+ */
+function formatPaymentDate(dateString) {
+  if (!dateString || dateString.length !== 14) {
+    return 'N/A';
+  }
+  
+  const year = dateString.substring(0, 4);
+  const month = dateString.substring(4, 6);
+  const day = dateString.substring(6, 8);
+  const hour = dateString.substring(8, 10);
+  const minute = dateString.substring(10, 12);
+  const second = dateString.substring(12, 14);
+  
+  return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+}
+
+/**
+ * Chuyển hướng đến trang chi tiết đơn hàng
+ * @param {string} orderId - ID của đơn hàng
+ */
+function redirectToOrderDetail(orderId) {
+  window.location.href = `/restaurant/orders/${orderId}`;
 }
 
 /**
@@ -137,4 +193,8 @@ if (window.location.pathname.includes('/payment/return')) {
   document.addEventListener('DOMContentLoaded', handlePaymentReturn);
 }
 
-export { initiatePayment, handlePaymentReturn };
+// Export các hàm để sử dụng từ các module khác
+export {
+  initiatePayment,
+  handlePaymentReturn
+};
