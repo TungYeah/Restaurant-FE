@@ -142,10 +142,15 @@ h1 {
     background-color: #ff1a1a;
 }
 
-#total-price {
+#total-price-modal {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 10px;
+    text-align: center;
+}
+
+p strong {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #checkout-button {
@@ -458,4 +463,40 @@ button {
 img {
     display: flex;
     margin-left: 40px;
+}
+
+.customer-feedback {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customer-feedback label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.customer-feedback input[type="number"],
+.customer-feedback textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    font-size: 14px;
+}
+
+.customer-feedback input[type="number"]:focus,
+.customer-feedback textarea:focus {
+    border-color: #a3b6f7;
+    box-shadow: 0 0 5px rgba(163, 182, 247, 0.5);
 }

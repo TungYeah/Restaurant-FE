@@ -44,8 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const customerData = {
                 name: document.getElementById('customerName').value,
-                address: document.getElementById('customerAddress').value,
-                email: document.getElementById('customerEmail').value,
                 phoneNumber: document.getElementById('customerPhone').value
             };
 
@@ -153,19 +151,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // Xác nhận thanh toán và gửi yêu cầu thanh toán
     if (confirmCheckoutButton) {
         confirmCheckoutButton.onclick = async () => {
-            const tableId = localStorage.getItem('tableID');
-            const customerID = localStorage.getItem('customerID');
-            const totalPrice = document.getElementById('total-price-modal').textContent.replace(" VNĐ", "");
+            const tableID = localStorage.getItem('tableID');
+            const userID = localStorage.getItem('userID');
+            const phoneNumber = localStorage.getItem('phoneNumber');
+
+            const rating = document.getElementById('customerRating').value;
+            const comment = document.getElementById('customerComment').value;
+
+            if (!rating || !comment) {
+                alert("Vui lòng nhập đánh giá và nhận xét.");
+                return;
+            }
 
             const requestBody = {
                 userID: userID,
-                customerID: customerID,
-                tableID: tableId,
-                totalPrice: totalPrice
+                phoneNumber: phoneNumber,
+                rating: parseInt(rating),
+                comment: comment
             };
 
             try {
-                const paymentResponse = await fetch(`http://127.0.0.1:8081/restaurant/checkout/${tableId}`, {
+                const paymentResponse = await fetch(`http://127.0.0.1:8081/restaurant/checkout/${tableID}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody),
@@ -173,24 +179,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (paymentResponse.ok) {
                     const invoiceData = await paymentResponse.json();
-                    alert('Thanh toán thành công');
-                    console.log(invoiceData);
 
+                    console.log(invoiceData);
 
                     localStorage.removeItem('cartItems');
                     window.location.reload();
                 } else {
                     const errorData = await paymentResponse.json();
-                    alert(`Có lỗi xảy ra trong quá trình thanh toán: ${errorData.message || 'Vui lòng thử lại.'}`);
+
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.');
             }
         };
     }
 
-    // Đóng modal hóa đơn khi nhấn "X"
     if (closeInvoiceModalButton) {
         closeInvoiceModalButton.onclick = () => {
             invoiceModal.style.display = 'none';

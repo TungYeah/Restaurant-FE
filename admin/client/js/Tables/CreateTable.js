@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxCapacity = document.getElementById('maxCapacity').value;
 
         try {
-            const response = await fetch('http://localhost:8081/restaurant/order/createTable', {
+            const response = await fetch('http://localhost:8081/restaurant/tables/createTable', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

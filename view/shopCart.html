@@ -149,13 +149,6 @@
             <form id="customerForm">
                 <label for="customerName">Tên khách hàng:</label>
                 <input type="text" id="customerName" required>
-
-                <label for="customerAddress">Địa chỉ:</label>
-                <input type="text" id="customerAddress" required>
-
-                <label for="customerEmail">Email:</label>
-                <input type="email" id="customerEmail" required>
-
                 <label for="customerPhone">Số điện thoại:</label>
                 <input type="text" id="customerPhone" required>
 
@@ -188,11 +181,18 @@
 
                 </tbody>
             </table>
+            <div class="customer-feedback" style="margin-top: 20px;">
+                <label for="customerRating">Đánh giá (1-5):</label>
+                <input type="number" id="customerRating" min="1" max="5" required>
 
+                <label for="customerComment">Nhận xét:</label>
+                <textarea id="customerComment" rows="2" required></textarea>
+            </div>
             <p><strong>Tổng cộng: </strong><span id="total-price-modal">0 VNĐ</span></p>
             <div>
                 <img src="../view/images/462537553_1705223143663241_844759981905990745_n.jpg" alt="">
             </div>
+
 
             <button id="confirm-checkout">Xác nhận thanh toán</button>
         </div>
