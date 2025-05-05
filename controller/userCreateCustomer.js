@@ -134,12 +134,12 @@ document.addEventListener("DOMContentLoaded", function () {
             cartItems.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;"></td>
-                        <td>${item.name}</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price} VNĐ</td>
-                        <td>${item.quantity * item.price} VNĐ</td>
-                    `;
+                    <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;"></td>
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price} VNĐ</td>
+                    <td>${item.quantity * item.price} VNĐ</td>
+                `;
                 invoiceItemsTable.appendChild(row);
                 totalPrice += item.quantity * item.price;
             });
@@ -149,12 +149,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
     if (confirmCheckoutButton) {
         confirmCheckoutButton.onclick = async () => {
             const tableID = localStorage.getItem('tableID');
             const userID = localStorage.getItem('userID');
             const phoneNumber = localStorage.getItem('phoneNumber');
+
             const rating = document.getElementById('customerRating').value;
             const comment = document.getElementById('customerComment').value;
 
@@ -163,55 +163,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const requestBody = { userID, phoneNumber, rating: parseInt(rating), comment };
+            const requestBody = {
+                userID: userID,
+                phoneNumber: phoneNumber,
+                rating: parseInt(rating),
+                comment: comment
+            };
 
             try {
-                console.log("🔄 Gửi yêu cầu thanh toán...");
-                const paymentResponse = await fetch(
-                    `http://localhost:8081/restaurant/checkout/${tableID}`,
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(requestBody),
-                    }
-                );
-
-                if (!paymentResponse.ok) {
-                    const errText = await paymentResponse.text();
-                    console.error("❌ Thanh toán thất bại:", errText);
-                    alert("Thanh toán thất bại. Vui lòng thử lại.");
-                    return;
-                }
-                fetch(`http://localhost:8081/restaurant/tables/unavailable/${tableID}`, {
+                const paymentResponse = await fetch(`http://127.0.0.1:8081/restaurant/checkout/${tableID}`, {
                     method: 'POST',
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log(`Bàn ${tableID} đã được đặt trạng thái UNAVAILABLE.`);
-                        } else {
-                            return response.text().then(text => {
-                                console.error('Lỗi khi đặt trạng thái bàn:', text);
-                            });
-                        }
-                    })
-                    .catch(err => console.error('Lỗi khi gọi API:', err));
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody),
+                });
 
-                const invoiceData = await paymentResponse.json();
-                console.log("✅ Thanh toán thành công:", invoiceData);
+                if (paymentResponse.ok) {
+                    const invoiceData = await paymentResponse.json();
 
-                // Gọi API để set bàn AVAILABLE
-                console.log("🔄 Gửi yêu cầu set bàn AVAILABLE...");
-                releaseTable(tableID);
+                    console.log(invoiceData);
 
-                console.log("🧹 Xóa cartItems và reload...");
-                localStorage.removeItem("cartItems");
-                window.location.reload();
-            } catch (err) {
-                console.error("❌ Lỗi toàn cục:", err);
-                alert("Đã có lỗi xảy ra. Vui lòng thử lại.");
+                    localStorage.removeItem('cartItems');
+                    window.location.reload();
+                } else {
+                    const errorData = await paymentResponse.json();
+
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
         };
     }
+
     if (closeInvoiceModalButton) {
         closeInvoiceModalButton.onclick = () => {
             invoiceModal.style.display = 'none';
